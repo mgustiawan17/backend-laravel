@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Modul;
+use App\Models\Pemateri;
 use Illuminate\Http\Request;
 
-class ModulController extends Controller
+class PemateriController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $modul = Modul::all();
-        return response()->json(['modul' => $modul], 200);
+        $pemateri = Pemateri::all();
+        return response()->json(['pemateri' => $pemateri], 200);
     }
 
     /**
@@ -22,7 +22,7 @@ class ModulController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -35,26 +35,22 @@ class ModulController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'jenis' => 'required|string|max:255',
-            'materi' => 'required|string|max:255',
-            'date' => 'required|date',
-            'time' => 'required|string',
-            'name_pemateri' => 'required|string|max:255',
+            'no_hp' => 'required|integer|max:13',
+            'role' => 'required|string',
+            'job' => 'required|string|max:255',
         ]);
 
-        $modul = Modul::create([
+        $pemateri = Pemateri::create([
             'name' => $validated['name'],
-            'jenis' => $validated['jenis'],
-            'materi' => $validated['materi'],
-            'date' => $validated['date'],
-            'time' => $validated['time'],
-            'name_pemateri' => $validated['name_pemateri'],
+            'no_hp' => $validated['no_hp'],
+            'role' => $validated['role'],
+            'job' => $validated['job'],
         ]);
 
         return response()->json([
             'success' => true,
-            'message' => 'Modul created successfully',
-            'data' => $modul,
+            'message' => 'Pemateri created successfully',
+            'data' => $pemateri,
         ], 201);
     }
 
@@ -87,8 +83,8 @@ class ModulController extends Controller
      */
     public function destroy(string $id)
     {
-        $modul = modul::destroy($id);
+        $pemateri = Pemateri::destroy($id);
     
-        return response()->json(['modul' => $modul], 200);
+        return response()->json(['pemateri' => $pemateri], 200);
     }
 }
